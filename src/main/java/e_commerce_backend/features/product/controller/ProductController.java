@@ -43,7 +43,6 @@ public class ProductController {
     }
     @GetMapping("/products")
     public List<ProductResponse> products(@AuthenticationPrincipal UserInformation user){
-        log.info("user id {}",user.getAccountId());
         return productService.getProductByShop(user.getAccountId());
     }
     @GetMapping("/shop/detail/{product-id}")
