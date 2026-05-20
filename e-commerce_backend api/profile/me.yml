@@ -1,0 +1,30 @@
+info:
+  name: me
+  type: http
+  seq: 1
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/api/v1/profile/me"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: "*/*"
+  body:
+    type: json
+    data: |-
+      {
+      	"profileName": "string",
+      	"avatar": "string",
+      	"phone": "string",
+      	"gender": "Male",
+      	"dob": "1970-01-14"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

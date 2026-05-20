@@ -1,0 +1,34 @@
+info:
+  name: update
+  type: http
+  seq: 2
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/api/v1/address/update/me/:address_id"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: "*/*"
+  params:
+    - name: address_id
+      value: "7600"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+      	"name": "string",
+      	"phone": "string",
+      	"address": "string",
+      	"city": "string",
+      	"description": "string"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

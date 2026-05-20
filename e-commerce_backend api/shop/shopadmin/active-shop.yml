@@ -1,0 +1,15 @@
+info:
+  name: active-shop
+  type: http
+  seq: 1
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/api/v1/shop/admin/active/{account-id}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

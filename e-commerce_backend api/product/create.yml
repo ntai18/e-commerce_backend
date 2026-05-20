@@ -1,0 +1,67 @@
+info:
+  name: create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/product/create/me"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: "*/*"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Áo Thun Polo Nam",
+        "description": "Chất liệu cotton lạnh, thoáng mát, thấm hút mồ hôi tốt",
+        "attribute": [
+          {
+            "attributeName": "Size",
+            "value": [
+              { "value": "M" },
+              { "value": "L" }
+            ]
+          },
+          {
+            "attributeName": "Màu sắc",
+            "value": [
+              { "value": "Xanh Navy" },
+              { "value": "Trắng" }
+            ]
+          }
+        ],
+        "variantProduct": [
+          {
+            "price": 250000.0,
+            "stock": 300,
+            "imageUrl": "url_polo_navy_m",
+            "sku": "POLO-M-BL",
+            "attributeValue": [
+              { "value": "M" },
+              { "value": "Xanh Navy" }
+            ]
+          },
+          {
+            "price": 250000.0,
+            "stock": 0,
+            "imageUrl": "url_polo_trang_l",
+            "sku": "POLO-L-WH",
+            "attributeValue": [
+              { "value": "L" },
+              { "value": "Trắng" }
+            ]
+          }
+        ]
+      }
+  auth:
+    type: bearer
+    token: "{{bearerToken}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

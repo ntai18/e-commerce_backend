@@ -1,0 +1,22 @@
+info:
+  name: delete
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/api/v1/address/delete/me/:address_id"
+  headers:
+    - name: Accept
+      value: "*/*"
+  params:
+    - name: address_id
+      value: "7600"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
