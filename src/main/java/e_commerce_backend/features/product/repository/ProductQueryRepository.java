@@ -21,7 +21,6 @@ public class ProductQueryRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public List<ProductResponse> getProductByShopId(Long shopId) {
-        log.info("Getting product -------------");
         String sqlProduct = """
                 SELECT p.id , p.shop_id , p.description , p.title , p.status
                 FROM product p
@@ -34,9 +33,7 @@ public class ProductQueryRepository {
             productResponse.setShopId(rs.getLong("shop_id"));
             productResponse.setDescription(rs.getString("description"));
             productResponse.setTitle(rs.getString("title"));
-            log.info("----------------------------");
             productResponse.setStatus(ProductStatusType.valueOf(rs.getString("status").toUpperCase()));
-            log.info("status {}",  productResponse.getStatus());
             return productResponse;
             }
         );
@@ -46,7 +43,6 @@ public class ProductQueryRepository {
 
     // productDetail
     public ProductResponse getProductDetailByProductId(Long productId) {
-        log.info("Getting product --------------------------------");
         String sqlProduct = """
                 SELECT p.id , p.shop_id , p.description , p.title , p.status
                 FROM product p
