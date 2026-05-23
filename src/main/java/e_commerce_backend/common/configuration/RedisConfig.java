@@ -18,7 +18,7 @@ import java.time.Duration;
 
 @Configuration
 @EnableCaching
-public class RedisConfig {
+public class  RedisConfig {
     @Value("${spring.data.redis.port}")
     private int port;
     @Value("${spring.data.redis.host}")

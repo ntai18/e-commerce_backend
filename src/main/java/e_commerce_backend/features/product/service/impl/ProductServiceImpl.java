@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> getProductByShop(Long accountId) {
+    public List<ProductResponse> getListProductByShop(Long accountId) {
         return productQueryRepository.getProductByShopId(shopProvider.getIdShop(accountId));
     }
 

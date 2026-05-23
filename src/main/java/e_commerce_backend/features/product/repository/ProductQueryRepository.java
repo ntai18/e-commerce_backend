@@ -21,7 +21,6 @@ public class ProductQueryRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public List<ProductResponse> getProductByShopId(Long shopId) {
-        log.info("Getting product -------------");
         String sqlProduct = """
                 SELECT p.id , p.shop_id , p.description , p.title , p.status
                 FROM product p
@@ -34,9 +33,7 @@ public class ProductQueryRepository {
             productResponse.setShopId(rs.getLong("shop_id"));
             productResponse.setDescription(rs.getString("description"));
             productResponse.setTitle(rs.getString("title"));
-            log.info("----------------------------");
             productResponse.setStatus(ProductStatusType.valueOf(rs.getString("status").toUpperCase()));
-            log.info("status {}",  productResponse.getStatus());
             return productResponse;
             }
         );
@@ -46,24 +43,20 @@ public class ProductQueryRepository {
 
     // productDetail
     public ProductResponse getProductDetailByProductId(Long productId) {
-        log.info("Getting product --------------------------------");
         String sqlProduct = """
                 SELECT p.id , p.shop_id , p.description , p.title , p.status
                 FROM product p
                 WHERE p.id = :productId
                 """;
         MapSqlParameterSource productParamP = new MapSqlParameterSource("productId", productId);
-        ProductResponse productResponse = jdbcTemplate.query(sqlProduct, productParamP, rs ->  {
-            if(rs.next()) {
-                ProductResponse productResponse1 = new ProductResponse();
-                productResponse1.setId(rs.getLong("id"));
-                productResponse1.setShopId(rs.getLong("shop_id"));
-                productResponse1.setDescription(rs.getString("description"));
-                productResponse1.setTitle(rs.getString("title"));
-                productResponse1.setStatus(ProductStatusType.valueOf(rs.getString("status").toUpperCase()));
+        ProductResponse productResponse = (ProductResponse) jdbcTemplate.queryForObject(sqlProduct, productParamP, (rs, rowNum) ->  {
+            ProductResponse productResponse1 = new ProductResponse();
+            productResponse1.setId(rs.getLong("id"));
+            productResponse1.setShopId(rs.getLong("shop_id"));
+            productResponse1.setDescription(rs.getString("description"));
+            productResponse1.setTitle(rs.getString("title"));
+            productResponse1.setStatus(ProductStatusType.valueOf(rs.getString("status").toUpperCase()));
                 return productResponse1;
-            }else
-                return null;
         });
 
         String sqlAttribute = """
@@ -132,7 +125,6 @@ public class ProductQueryRepository {
                         Long attrId = rs.getObject("attribute_value_id", Long.class);
                         map.computeIfAbsent(varId, k -> new ArrayList<>()).add(attrId);
                     }
-
                     return map;
         });
         for (VariantProductResponse variantProductResponse : variantProductResponseList) {

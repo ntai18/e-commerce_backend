@@ -41,13 +41,15 @@ public class ProductController {
     public void product(){
 
     }
+
     @GetMapping("/products")
-    public List<ProductResponse> products(@AuthenticationPrincipal UserInformation user){
-        return productService.getProductByShop(user.getAccountId());
+    public ResponseEntity<ApiResponse<List<ProductResponse>>> products(@AuthenticationPrincipal UserInformation user){
+        return ResponseEntity.ok().body(ApiResponse.successData("Product list user "+ user.getAccountId(), productService.getListProductByShop(user.getAccountId())));
     }
+
     @GetMapping("/shop/detail/{product-id}")
-    public ResponseEntity<ApiResponse<List<ProductResponse>>> productDetail(@PathVariable(name = "product-id") Long productId, @AuthenticationPrincipal UserInformation user){
-        return ResponseEntity.ok().body(ApiResponse.successData("Detail Product ---", Collections.singletonList(productService.getProductDetailById(user.getAccountId(), productId))));
+    public ResponseEntity<ApiResponse<ProductResponse>> productDetail(@PathVariable(name = "product-id") Long productId, @AuthenticationPrincipal UserInformation user){
+        return ResponseEntity.ok().body(ApiResponse.successData("Detail Product ---", productService.getProductDetailById(user.getAccountId(), productId)));
     }
 
 }
