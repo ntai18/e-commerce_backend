@@ -5,8 +5,10 @@ info:
 
 http:
   method: GET
-  url: /shop/detail/{product-id}
-  auth: inherit
+  url: "{{baseUrl}}/api/v1/product/shop/detail/5"
+  auth:
+    type: bearer
+    token: "{{bearerToken}}"
 
 settings:
   encodeUrl: true
